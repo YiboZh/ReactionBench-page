@@ -1,0 +1,174 @@
+---
+title: "ReactionBench: A Human-Anchored Benchmark for Modeling Reactions to Video"
+theme: device
+favicon: favicon.svg
+description: Can multimodal models connect what a viewer sees to how they react? ReactionBench evaluates intensity profiling, stimulus–reaction matching, and grounded rationale generation on synchronized in-the-wild reaction videos.
+thumbnail: thumbnail.png
+---
+
+import Hero from "./components/Hero.astro";
+import StatGrid from "./components/StatGrid.astro";
+import TaskDemo from "./components/TaskDemo.astro";
+import Finding from "./components/Finding.astro";
+import HighlightedSection from "./components/HighlightedSection.astro";
+import Figure from "./components/Figure.astro";
+import Picture from "./components/Picture.astro";
+import Wide from "./components/Wide.astro";
+import { Leaderboard } from "./components/Leaderboard.tsx";
+import { SRMQuiz } from "./components/SRMQuiz.tsx";
+
+import overview from "./assets/fig/overview.png";
+import pipeline from "./assets/fig/pipeline.png";
+import construction from "./assets/fig/construction.png";
+import resultsGlance from "./assets/fig/results_glance.png";
+
+{/* TODO(author): real author list, affiliations, and link targets before going public. */}
+
+<Hero
+  title="ReactionBench"
+  subtitle="A human-anchored benchmark for grounding an observed viewer reaction in the video that caused it."
+  venue="Under review · 2026"
+  authors={[
+    { name: "Author One", institution: "Institution" },
+    { name: "Author Two", institution: "Institution" },
+    { name: "Author Three", institution: "Institution" },
+  ]}
+  links={[
+    { name: "Paper", url: "#", icon: "ri:file-pdf-2-line" },
+    { name: "arXiv", url: "#", icon: "academicons:arxiv" },
+    { name: "Code", url: "#", icon: "ri:github-line" },
+    { name: "Dataset", url: "#", icon: "ri:database-2-line" },
+    { name: "Leaderboard", url: "#leaderboard", icon: "ri:trophy-line" },
+  ]}
+/>
+
+<Wide>
+  <Figure>
+    <Picture slot="figure" src={overview} alt="Overview of ReactionBench: synchronized stimulus–reaction videos, human evidence and task construction, and three tasks — intensity profiling, stimulus–reaction matching, and grounded rationale generation." priority />
+    <Fragment slot="caption">**Overview.** Built from synchronized in-the-wild stimulus–reaction videos, ReactionBench tests whether a multimodal model can connect a stimulus to an observed viewer reaction through three tasks. Intensity scores and rationale references are human-authored; matching answers come from temporal alignment.</Fragment>
+  </Figure>
+</Wide>
+
+<HighlightedSection>
+
+## TL;DR
+
+Video benchmarks ask what happens *in* a video. Socially responsive systems also need to relate what a person **watches** to how that person **responds**: a laugh follows a visual gag; a pause matters only against the same viewer's surrounding behavior. ReactionBench asks whether current multimodal models can rank, temporally match, and explain a viewer's reaction against the stimulus it was watching. Across seven models, the answer is: not yet.
+
+</HighlightedSection>
+
+<StatGrid
+  stats={[
+    { value: "31,834", label: "synchronized stimulus–reaction clips", color: "--rb-data" },
+    { value: "433 h", label: "of video across 8 domains", color: "--rb-data" },
+    { value: "14,894", label: "human intensity ratings on 3,257 moments", color: "--rb-t1" },
+    { value: "447", label: "blind-written human rationales", color: "--rb-t3" },
+  ]}
+/>
+
+## Three tasks
+
+Each task states its input, its supervision source, and its scoring rule. No model-generated annotation is used as gold.
+
+<TaskDemo
+  tag="T1"
+  name="Intensity Profiling"
+  color="t1"
+  size="250 videos · 642 moments"
+  input="A full reaction video with 2–5 marked time ranges."
+  output="A 0–100 intensity score per range; mean per-video extended Spearman ρ₀."
+  gold="Consensus of ≥3 behaviorally anchored 0–3 human ratings per moment."
+  video="videos/task1_intensity_profiling"
+/>
+
+<TaskDemo
+  tag="T2"
+  name="Stimulus–Reaction Matching"
+  color="t2"
+  size="112 items · 97 videos"
+  input="One reaction window and four same-video stimulus candidates, separated in time."
+  output="One A/B/C/D choice; four-way accuracy (chance 25%)."
+  gold="Temporal alignment in the synchronized recording: the stimulus on screen during the reaction."
+  video="videos/task2_stimulus_reaction_matching"
+/>
+
+<TaskDemo
+  tag="T3"
+  name="Grounded Rationale Generation"
+  color="t3"
+  size="200 items · 447 references"
+  input="Time-aligned stimulus and reaction frames."
+  output="A one-sentence cue-based explanation, judged for cue, link, and reference consistency (0–5)."
+  gold="1–5 blind-written human rationales per item; judge validated against a human-rated anchor set."
+  video="videos/task3_grounded_rationale"
+/>
+
+### Try it yourself
+
+<SRMQuiz client:visible base={import.meta.env.BASE_URL.replace(/\/?$/, "/")} />
+
+## Building the benchmark
+
+Source videos are public reaction recordings in which a creator watches content, usually in a picture-in-picture layout. The pipeline separates the stimulus and reactor views into time-aligned streams. A model-assisted pre-screen nominates candidate moments, and people supply every label: intensity ratings, rationale references, and the audits behind each task's construction contract.
+
+<Wide>
+  <Figure>
+    <Picture slot="figure" src={pipeline} alt="ReactionBench annotation pipeline from source videos to human-annotated moments." />
+    <Fragment slot="caption">**Annotation pipeline.** Automated processing and model-based nomination reduce annotation load. People provide the intensity ratings and rationale references. In a blind pilot, 92.0% of the selected nominator's picks received a human score ≥ 2, against 68.0% for a facial-analysis selector.</Fragment>
+  </Figure>
+</Wide>
+
+<Wide>
+  <Figure>
+    <Picture slot="figure" src={construction} alt="Construction of the three frozen evaluation sets." />
+    <Fragment slot="caption">**Evaluation-set construction.** Each set follows an explicit contract: within-video contrast for IP, audited temporal separation between candidates for SRM, and blind-written references for GRG.</Fragment>
+  </Figure>
+</Wide>
+
+## Leaderboard
+
+Zero-shot results for seven multimodal models on the frozen evaluation sets. IP reports mean per-video ρ₀ (a constant prediction scores zero) and pooled Pearson r under joint and independent scoring. GRG uses one shared text-only judge (DeepSeek-V3.1).
+
+<Leaderboard client:visible />
+
+## Key findings
+
+<div class="not-prose my-8 grid gap-4 md:grid-cols-2">
+  <Finding number="50.9%" title="Matching stays hard" color="--rb-t2">
+    The best model picks the aligned stimulus in about half of four-way SRM items (chance 25%). Rationale composites peak at 2.91 / 5.
+  </Finding>
+  <Finding number="≈0" title="Which reaction? Models barely notice" color="--rb-t1">
+    For GPT-5, removing the reaction lowers rationale scores, but substituting <em>another viewer's</em> reaction produces no detectable drop. The model responds to the presence of a reaction, not to which reaction it is shown.
+  </Finding>
+  <Finding number="+.14–.23" title="Protocol moves the score" color="--rb-data">
+    Scoring moments independently instead of jointly raises intensity-ranking ρ₀ for every one of the seven models, and every paired interval excludes zero.
+  </Finding>
+  <Finding number="7 / 7" title="No model leads every column" color="--rb-t3">
+    Gemini leads joint IP, GPT-5 leads SRM and cue coverage, Qwen3.6-27B leads independent IP, and Kimi-K2.6 leads the GRG composite. The 27B model beats the 397B mixture on IP and SRM.
+  </Finding>
+</div>
+
+<Figure>
+  <Picture slot="figure" src={resultsGlance} alt="Results at a glance across IP, SRM, and GRG for seven models, with 95% intervals." />
+  <Fragment slot="caption">**Results at a glance**, with 95% bootstrap intervals.</Fragment>
+</Figure>
+
+## Data release and responsible use
+
+- **Code** (MIT): evaluation harness for all three tasks, scoring, judge, and the dataset-construction pipeline.
+- **Annotations** (CC BY-NC 4.0): frozen task files, de-identified human ratings, and human rationale references. Annotator identities are replaced with pseudonyms.
+- **Videos are not redistributed.** Each item references its public source video by ID and timestamps, and a script retrieves and cuts the clips locally. Stimulus content remains the property of its rights holders.
+- **Creator opt-out and takedown.** Creators can request removal of their videos from the benchmark through the contact below. {/* TODO(author): takedown contact */}
+
+ReactionBench is intended for evaluating research systems that connect observable events with observable reactions under a disclosed protocol. It is **not** intended for inferring private mental states, diagnosing emotion or health, detecting deception, ranking people by emotional expressiveness, or supporting surveillance or consequential decisions about individuals. Human-participant research completed institutional ethics review. Annotators were paid an average of \$12.00–\$16.67 per hour.
+
+## BibTeX
+
+```bibtex
+@inproceedings{reactionbench2026,
+  title     = {ReactionBench: A Human-Anchored Benchmark for Modeling Reactions to Video},
+  author    = {TODO},
+  booktitle = {TODO},
+  year      = {2026}
+}
+```

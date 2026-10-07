@@ -1,0 +1,16 @@
+---
+type Stat = { value: string; label: string; color?: string };
+interface Props { stats: Stat[] }
+const { stats } = Astro.props;
+---
+
+<div class="not-prose my-10 grid grid-cols-2 gap-3 sm:grid-cols-4">
+  {
+    stats.map((s) => (
+      <div class="rounded-xl border border-zinc-200 bg-white px-4 py-5 text-center shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
+        <div class="text-3xl font-bold tabular-nums" style={`color: var(${s.color ?? "--rb-data"})`}>{s.value}</div>
+        <div class="mt-1 text-sm leading-tight text-zinc-600 dark:text-zinc-400">{s.label}</div>
+      </div>
+    ))
+  }
+</div>

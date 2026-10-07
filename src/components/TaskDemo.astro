@@ -1,0 +1,42 @@
+---
+interface Props {
+  tag: string;
+  name: string;
+  color: "t1" | "t2" | "t3";
+  size: string;
+  input: string;
+  output: string;
+  gold: string;
+  video: string;
+}
+const { tag, name, color, size, input, output, gold, video } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+---
+
+<section class="full-bleed not-prose my-14 px-6" id={`task-${tag.toLowerCase()}`}>
+  <div class="mx-auto max-w-[72rem] overflow-hidden rounded-2xl border shadow-sm" style={`border-color: var(--rb-${color}); background: var(--rb-${color}-soft)`}>
+    <div class="flex flex-wrap items-center gap-3 px-6 pt-5">
+      <span class="rounded-lg px-3 py-1 text-lg font-bold text-white" style={`background: var(--rb-${color})`}>{tag}</span>
+      <h3 class="text-2xl font-semibold text-zinc-900 dark:text-zinc-50">{name}</h3>
+      <span class="ml-auto text-sm text-zinc-600 dark:text-zinc-400">{size}</span>
+    </div>
+    <div class="p-4 sm:p-6">
+      <video
+        class="aspect-video w-full rounded-xl bg-black shadow-lg"
+        poster={`${base}${video}.poster.png`}
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto">
+        <source src={`${base}${video}.webm`} type="video/webm" />
+        <source src={`${base}${video}.mp4`} type="video/mp4" />
+      </video>
+    </div>
+    <dl class="grid gap-4 px-6 pb-6 text-[0.95rem] sm:grid-cols-3">
+      <div><dt class="text-xs font-semibold tracking-wider uppercase" style={`color: var(--rb-${color})`}>Input</dt><dd class="mt-1 text-zinc-800 dark:text-zinc-200">{input}</dd></div>
+      <div><dt class="text-xs font-semibold tracking-wider uppercase" style={`color: var(--rb-${color})`}>Output · metric</dt><dd class="mt-1 text-zinc-800 dark:text-zinc-200">{output}</dd></div>
+      <div><dt class="text-xs font-semibold tracking-wider uppercase" style={`color: var(--rb-${color})`}>Ground truth</dt><dd class="mt-1 text-zinc-800 dark:text-zinc-200">{gold}</dd></div>
+    </dl>
+  </div>
+</section>

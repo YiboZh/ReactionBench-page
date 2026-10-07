@@ -1,0 +1,23 @@
+{
+  "_source": "ReactionBench-paper-ICLR/tables/main_results.tex (Table 2). Zero-shot.",
+  "columns": [
+    {"key": "ip_joint_rho", "group": "IP joint", "label": "ρ₀", "higher": true},
+    {"key": "ip_joint_r", "group": "IP joint", "label": "r", "higher": true},
+    {"key": "ip_indep_rho", "group": "IP indep.", "label": "ρ₀", "higher": true},
+    {"key": "ip_indep_r", "group": "IP indep.", "label": "r", "higher": true},
+    {"key": "srm_acc", "group": "SRM", "label": "Acc.", "higher": true},
+    {"key": "grg_comp", "group": "GRG", "label": "Comp. /5", "higher": true},
+    {"key": "grg_cue", "group": "GRG", "label": "Cue /2", "higher": true},
+    {"key": "grg_cons", "group": "GRG", "label": "Cons. /1", "higher": true}
+  ],
+  "rows": [
+    {"model": "GPT-5", "access": "proprietary", "ip_joint_rho": 0.026, "ip_joint_r": 0.293, "ip_indep_rho": 0.177, "ip_indep_r": 0.426, "srm_acc": 0.509, "grg_comp": 2.775, "grg_cue": 1.245, "grg_cons": 0.465},
+    {"model": "Gemini 3.7 Flash", "access": "proprietary", "ip_joint_rho": 0.176, "ip_joint_r": 0.308, "ip_indep_rho": 0.316, "ip_indep_r": 0.518, "srm_acc": 0.500, "grg_comp": 2.654, "grg_cue": 0.906, "grg_cons": 0.618},
+    {"model": "Qwen3.5-9B", "access": "open", "ip_joint_rho": 0.029, "ip_joint_r": 0.204, "ip_indep_rho": 0.255, "ip_indep_r": 0.389, "srm_acc": 0.259, "grg_comp": 2.825, "grg_cue": 0.900, "grg_cons": 0.205},
+    {"model": "Qwen3.6-27B", "access": "open", "ip_joint_rho": 0.163, "ip_joint_r": 0.238, "ip_indep_rho": 0.329, "ip_indep_r": 0.434, "srm_acc": 0.446, "grg_comp": 2.610, "grg_cue": 0.815, "grg_cons": 0.270},
+    {"model": "Qwen3.6-35B-A3B", "access": "open", "ip_joint_rho": 0.043, "ip_joint_r": 0.187, "ip_indep_rho": 0.210, "ip_indep_r": 0.398, "srm_acc": 0.482, "grg_comp": 2.775, "grg_cue": 0.950, "grg_cons": 0.275},
+    {"model": "Qwen3.5-397B-A17B", "access": "open", "ip_joint_rho": 0.065, "ip_joint_r": 0.217, "ip_indep_rho": 0.267, "ip_indep_r": 0.387, "srm_acc": 0.411, "grg_comp": 2.905, "grg_cue": 0.950, "grg_cons": 0.270},
+    {"model": "Kimi-K2.6", "access": "open", "ip_joint_rho": 0.086, "ip_joint_r": 0.241, "ip_indep_rho": 0.233, "ip_indep_r": 0.430, "srm_acc": 0.375, "grg_comp": 2.910, "grg_cue": 1.085, "grg_cons": 0.295}
+  ],
+  "reference": {"model": "Chance", "srm_acc": 0.250}
+}

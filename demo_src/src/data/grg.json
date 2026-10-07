@@ -1,0 +1,39 @@
+{
+ "candidate_id": "10369_c00",
+ "window": [
+  4.02,
+  6.52
+ ],
+ "refs": [
+  "The giraffe head butts the girl.",
+  "The reviewer reacted because the giraffe hit the lady while she was trying to feed it.",
+  "The reviewer was shocked when the giraffe hit the woman unexpectedly."
+ ],
+ "models": [
+  {
+   "id": "gpt-5",
+   "name": "GPT-5",
+   "rationale": "When the woman tries to take a selfie, the giraffe suddenly lunges its head toward her, startling her.",
+   "scores": {
+    "cue": 2,
+    "link": 2,
+    "faithful": 1
+   },
+   "total": 5
+  },
+  {
+   "id": "tinker_Qwen_Qwen3.6-27B",
+   "name": "Qwen3.6-27B",
+   "rationale": "The viewer's reaction of shock was caused by the giraffe suddenly leaning over the railing to lick the woman's face.",
+   "scores": {
+    "cue": 0,
+    "link": 2,
+    "faithful": 0
+   },
+   "total": 2
+  }
+ ],
+ "judge": "DeepSeek-V3.1",
+ "stim": "media/grg_stim.mp4",
+ "face": "media/grg_face.mp4"
+}

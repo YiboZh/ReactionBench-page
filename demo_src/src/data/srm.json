@@ -1,0 +1,68 @@
+{
+ "candidate_id": "66953_c00",
+ "correct": 3,
+ "options": [
+  {
+   "start": 50.83,
+   "end": 55.37,
+   "desc": "Shifty Powers remains against the black background, his expression somber as he continues speaking, and the scene cuts to another man, identified as John Martin via on-screen text, who is wearing a white shirt and speaking with a somber expression against a black background.",
+   "media": "media/srm_opt0.mp4"
+  },
+  {
+   "start": 0.0,
+   "end": 4.13,
+   "desc": "An older man with light skin and white hair speaks directly to the camera, framed by a soft green background, before the scene cuts to a similar man against a stark black backdrop, his face lit dramatically from the side.",
+   "media": "media/srm_opt1.mp4"
+  },
+  {
+   "start": 11.87,
+   "end": 21.47,
+   "desc": "Donald Malarkey remains against the black backdrop, his glasses reflecting the light as he mentions Bill Guarnere and Joe Toye.",
+   "media": "media/srm_opt2.mp4"
+  },
+  {
+   "start": 26.53,
+   "end": 41.47,
+   "desc": "Donald Malarkey remains in the same starkly lit setting, his expression shifting slightly as he speaks, and the scene cuts to two other men in similar settings, each with a somber expression.",
+   "media": "media/srm_opt3.mp4"
+  }
+ ],
+ "picks": [
+  {
+   "id": "gpt-5",
+   "name": "GPT-5",
+   "pick": 3
+  },
+  {
+   "id": "gemini-3.7-flash",
+   "name": "Gemini 3.7 Flash",
+   "pick": 0
+  },
+  {
+   "id": "tinker_Qwen_Qwen3.5-9B",
+   "name": "Qwen3.5-9B",
+   "pick": 3
+  },
+  {
+   "id": "tinker_Qwen_Qwen3.6-27B",
+   "name": "Qwen3.6-27B",
+   "pick": 3
+  },
+  {
+   "id": "tinker_Qwen_Qwen3.6-35B-A3B",
+   "name": "Qwen3.6-35B-A3B",
+   "pick": 3
+  },
+  {
+   "id": "tinker_Qwen_Qwen3.5-397B-A17B",
+   "name": "Qwen3.5-397B-A17B",
+   "pick": 3
+  },
+  {
+   "id": "tinker_moonshotai_Kimi-K2.6",
+   "name": "Kimi-K2.6",
+   "pick": 3
+  }
+ ],
+ "reaction": "media/srm_reaction.mp4"
+}
