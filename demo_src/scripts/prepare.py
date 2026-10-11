@@ -7,8 +7,10 @@ Usage:  python3 scripts/prepare.py
 import json, os, subprocess, collections
 from pathlib import Path
 
-REL = Path('/home/xuan/yibo/code/reaction-video-release/gold_eval')
-CLIPS = Path('/home/xuan/yibo/code/reaction-video/gold_eval/data/clips')
+# REACTIONBENCH_DIR: a checkout of github.com/MIT-MI/ReactionBench (task files + model outputs).
+# REACTIONBENCH_MEDIA_DIR: evaluation clips laid out by key (face/, match/, stagec/).
+REL = Path(os.environ.get('REACTIONBENCH_DIR', Path(__file__).resolve().parents[3] / 'ReactionBench')) / 'reactionbench'
+CLIPS = Path(os.environ['REACTIONBENCH_MEDIA_DIR']) if 'REACTIONBENCH_MEDIA_DIR' in os.environ else None
 OUT = Path(__file__).resolve().parent.parent
 DATA, MEDIA = OUT / 'src/data', OUT / 'public/media'
 
@@ -38,7 +40,7 @@ NAME = {'gpt-5': 'GPT-5', 'gemini-3.7-flash': 'Gemini 3.7 Flash', 'tinker_Qwen_Q
         'tinker_Qwen_Qwen3.5-397B-A17B': 'Qwen3.5-397B-A17B', 'tinker_moonshotai_Kimi-K2.6': 'Kimi-K2.6'}
 
 
-def jsonl(p, key):  # last line wins (same as gold_eval scorers)
+def jsonl(p, key):  # last line wins (same as the reactionbench scorers)
     return {json.loads(l)[key]: json.loads(l) for l in open(p) if l.strip()}
 
 
@@ -91,6 +93,8 @@ def srm_only():
 
 
 def main():
+    if CLIPS is None:
+        raise SystemExit('Set REACTIONBENCH_MEDIA_DIR to the directory holding the evaluation clips.')
     DATA.mkdir(parents=True, exist_ok=True); MEDIA.mkdir(parents=True, exist_ok=True)
     if ONLY == 'srm':
         return srm_only()

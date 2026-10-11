@@ -18,6 +18,8 @@ Each basename has `.mp4` (H.264, yuv420p, faststart, no audio), `.webm` (VP9),
 
 ```bash
 npm install                 # remotion 4.0.532, react 18, @fontsource/inter
+export REACTIONBENCH_DIR=../../ReactionBench          # checkout of MIT-MI/ReactionBench (default)
+export REACTIONBENCH_MEDIA_DIR=/path/to/clips          # evaluation clips laid out by key
 python3 scripts/prepare.py  # extracts item data -> src/data/*.json, stages clips -> public/media/
 bash render.sh              # all three; or: bash render.sh IP
 npm run studio              # interactive preview / timeline scrubbing
@@ -31,12 +33,12 @@ with ffmpeg. Size knobs: `CRF_H264` (default 26), `CRF_VP9` (38), `GIF_FPS` (12;
 
 ## Data sources (read-only)
 
-* Tasks: `reaction-video-release/gold_eval/tasks/{ranking_set,match_set,rationale_set,rationale_refs}.json`
-* Predictions: `gold_eval/results/ranking/*.jsonl` (IP, joint setting),
+* Tasks: `ReactionBench/reactionbench/tasks/{ranking_set,match_set,rationale_set,rationale_refs}.json`
+* Predictions: `reactionbench/results/ranking/*.jsonl` (IP, joint setting),
   `results/match/*.jsonl` (SRM), `results/rationale/*.jsonl` +
   `results/rationale_judge/*__by__tinker_deepseek-ai_DeepSeek-V3.1.jsonl` (GRG; the paper's shared judge).
-  As in the gold_eval scorers, the last line per item wins.
-* Clips: `reaction-video/gold_eval/data/clips/{face,match,stagec}/` (local copies of the R2 objects).
+  As in the reactionbench scorers, the last line per item wins.
+* Clips: `$REACTIONBENCH_MEDIA_DIR/{face,match,stagec}/`.
 * Benchmark-level numbers shown in the videos come from the paper's main table:
   SRM best accuracy 50.9 % (GPT-5, chance 25 %), GRG best mean composite 2.91/5 (Kimi-K2.6).
 
