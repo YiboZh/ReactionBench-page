@@ -51,7 +51,7 @@ import resultsGlance from "./assets/fig/results_glance.png";
   links={[
     { name: "arXiv", icon: "academicons:arxiv" },
     { name: "Code", url: "https://github.com/MIT-MI/ReactionBench", icon: "ri:github-line" },
-    { name: "Dataset", icon: "ri:database-2-line" },
+    { name: "Dataset", url: "https://huggingface.co/datasets/YiboZhaoMit/ReactionBench", icon: "ri:database-2-line" },
     { name: "Leaderboard", url: "#leaderboard", icon: "ri:trophy-line" },
   ]}
 />
@@ -179,7 +179,7 @@ Zero-shot results for seven multimodal models on the frozen evaluation sets. IP 
 
 - **Code** (MIT): evaluation harness for all three tasks, scoring, judge, and the dataset-construction pipeline.
 - **Annotations** (CC BY-NC 4.0): frozen task files, de-identified human ratings, and human rationale references. Annotator identities are replaced with pseudonyms.
-- **Videos are not redistributed.** Task files refer to clips by key; scoring and reproducing the paper need no media. Reaction recordings belong to their creators and stimulus content to its rights holders.
+- **Evaluation clips** (2,110 clips, about 3 GB) are on a [gated Hugging Face dataset](https://huggingface.co/datasets/YiboZhaoMit/ReactionBench). Access is reviewed by the authors and granted for non-commercial academic research. Reaction recordings belong to their creators and stimulus content to its rights holders.
 - **Creator opt-out and takedown.** Creators can request removal of their videos by emailing [yibozhao@mit.edu](mailto:yibozhao@mit.edu) and [qua@mit.edu](mailto:qua@mit.edu) (see [TAKEDOWN.md](https://github.com/MIT-MI/ReactionBench/blob/main/TAKEDOWN.md)).
 
 ReactionBench is intended for evaluating research systems that connect observable events with observable reactions under a disclosed protocol. It is **not** intended for inferring private mental states, diagnosing emotion or health, detecting deception, ranking people by emotional expressiveness, or supporting surveillance or consequential decisions about individuals. Human-participant research completed institutional ethics review. Annotators were paid an average of \$12.00–\$16.67 per hour.
