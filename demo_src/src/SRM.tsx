@@ -17,10 +17,17 @@ const T_PICKS = 330;
 const T_STAT = 440;
 export const SRM_DUR = 540;
 
-const REACT_FRAMES = 194; // 6.5 s @30
-const OPT_FRAMES = [137, 126, 180, 180];
+const REACT_FRAMES = srm.reaction_frames;
+const OPT_FRAMES = srm.opt_frames;
 const L = 'ABCD';
 const CORRECT = srm.correct;
+
+// Wrong-pick chip: name up to two models, otherwise lead with GPT-5 (if present) and count the rest.
+const pickerLabel = (names: string[]) => {
+  if (names.length <= 2) return names.join(', ');
+  const lead = names.includes('GPT-5') ? 'GPT-5' : names[0];
+  return `${lead} + ${names.length - 1} more`;
+};
 
 const tilePos = (i: number) => ({x: 672 + (i % 2) * 600, y: 180 + Math.floor(i / 2) * 348, w: 576, h: 324});
 
@@ -49,7 +56,7 @@ const Tile: React.FC<{i: number; f: number}> = ({i, f}) => {
         <div style={{position: 'absolute', left: 86, top: 23, opacity: tagA, transform: `translateY(${(1 - tagA) * 14}px)`}}>
           <Chip bg={isC ? C.good : C.bad}>
             {isC ? <Check size={22} /> : <Cross size={20} />}
-            {isC ? `${pickers.length} of ${srm.picks.length} models` : pickers.map((p) => p.name).join(', ')}
+            {isC ? `${pickers.length} of ${srm.picks.length} models` : pickerLabel(pickers.map((p) => p.name))}
           </Chip>
         </div>
       )}
@@ -89,7 +96,7 @@ const QuestionBox: React.FC<{f: number}> = ({f}) => {
         <Badge ok size={50} />
         <div style={{display: 'flex', flexDirection: 'column', gap: 2}}>
           <div style={{fontSize: 28, fontWeight: 800, color: C.good}}>Answer: {L[CORRECT]} (time-synced)</div>
-          <div style={{fontSize: 23, color: C.sub, fontStyle: 'italic'}}>On D: “…Sometimes it makes me cry.”</div>
+          <div style={{fontSize: 22, color: C.sub, fontStyle: 'italic', maxWidth: 470, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}}>{srm.caption}</div>
         </div>
       </div>
       <div style={{position: 'absolute', inset: 0, padding: '0 26px', display: 'flex', alignItems: 'center', gap: 18, opacity: s}}>
@@ -129,7 +136,7 @@ const Scene: React.FC = () => {
   return (
     <>
       <MediaCard x={72} y={180} w={560} h={560} border={rv > 0 ? C.good : TH.strong} borderW={rv > 0 ? 8 * rv : 0}
-        label={<Chip><RecDot /> Reaction clip · 6.5 s</Chip>}>
+        label={<Chip><RecDot /> Reaction clip · {srm.reaction_s} s</Chip>}>
         <Clip src={srm.reaction} frame={rf} />
         <div style={{position: 'absolute', left: 16, bottom: 16, opacity: rv}}>
           <Chip bg={C.good}><Check size={22} /> Aligned with {L[CORRECT]}</Chip>

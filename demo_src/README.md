@@ -8,7 +8,7 @@ opening frame, and the last 20 frames dissolve back into that same state.
 | Composition | Output basename (`../public/videos/`) | Length | Item |
 |---|---|---|---|
 | `IP`  | `task1_intensity_profiling`        | 20.0 s | ranking video `46727` |
-| `SRM` | `task2_stimulus_reaction_matching` | 18.0 s | match item `66953_c00` |
+| `SRM` | `task2_stimulus_reaction_matching` | 18.0 s | match item `56761_c00` |
 | `GRG` | `task3_grounded_rationale`         | 20.0 s | rationale item `10369_c00` |
 
 Each basename has `.mp4` (H.264, yuv420p, faststart, no audio), `.webm` (VP9),
@@ -43,7 +43,7 @@ with ffmpeg. Size knobs: `CRF_H264` (default 26), `CRF_VP9` (38), `GIF_FPS` (12;
 To swap an example, change `IP_VIDEO` / `SRM_ITEM` / `GRG_ITEM` (and the model
 lists) at the top of `scripts/prepare.py`, re-run it, and adjust the few
 item-specific strings: the highlighted phrases in `src/GRG.tsx` (`segs(...)`)
-and the on-screen subtitle quote in `src/SRM.tsx` (`QuestionBox`).
+and, for SRM, the caption in `SRM_CAPTIONS` (`scripts/prepare.py`).
 
 ## Why these items
 
@@ -52,12 +52,13 @@ and the on-screen subtitle quote in `src/SRM.tsx` (`QuestionBox`).
   6 raters each), short enough to play in full in real time, and the reactions are
   large, unmistakable laughs. Outcome: GPT-5 swaps the top two moments (ρ = 0.50),
   Qwen3.5-397B-A17B recovers the human order exactly (ρ = 1.00).
-* **SRM `66953_c00`** (documentary interviews with WWII veterans; the viewer is
-  crying). All four candidates look alike (elderly men talking to camera), which
-  shows why the task is hard; the correct window (D) carries the subtitle
-  "…Sometimes it makes me cry", which makes the alignment legible without sound.
-  Six of seven models pick D; Gemini 3.7 Flash picks A, another emotional
-  interview moment from the same video.
+* **SRM `56761_c00`** (*The Theory of Everything*; the viewer gasps and smiles). The
+  aligned window (A) carries the subtitle "Will you dance with me?", so the match is legible
+  without sound. GPT-5 and three other models pick C, a later romantic scene from the same
+  film; Gemini 3.7 Flash, Qwen3.5-9B and Qwen3.6-27B pick A. It shows the typical failure:
+  the model recognizes the film and the mood but not the moment. Chosen from eight rendered
+  candidates (`SRM_ITEM=<id> ONLY=srm python3 scripts/prepare.py` swaps the item; add its
+  caption to `SRM_CAPTIONS`).
 * **GRG `10369_c00`** (animal clip: a giraffe head-butts a woman taking a selfie;
   the viewer's jaw drops). The cue is obvious on screen. GPT-5 names it (judge
   5/5: cue 2, link 2, ref. consistency 1); Qwen3.6-27B describes the giraffe
