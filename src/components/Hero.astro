@@ -1,18 +1,20 @@
 ---
 import { Icon } from "astro-icon/components";
 
-type Author = { name: string; url?: string; institution?: string; notes?: string[] };
-type Link = { url: string; name: string; icon?: string };
+type Author = { name: string; url?: string; affil: number[]; equal?: boolean };
+// A link without a url renders as a disabled "coming soon" pill.
+type Link = { url?: string; name: string; icon?: string };
 
 interface Props {
   title: string;
   subtitle: string;
   venue?: string;
   authors: Author[];
+  affiliations: string[];
   links: Link[];
 }
 
-const { title, subtitle, venue, authors, links } = Astro.props;
+const { title, subtitle, venue, authors, affiliations, links } = Astro.props;
 ---
 
 <header class="full-bleed not-prose relative -mt-16 mb-14 overflow-hidden pt-24 pb-16">
@@ -21,7 +23,7 @@ const { title, subtitle, venue, authors, links } = Astro.props;
     class="absolute inset-0 -z-10 bg-[radial-gradient(60rem_30rem_at_15%_-10%,var(--rb-data-soft),transparent_60%),radial-gradient(50rem_30rem_at_85%_0%,var(--rb-t2-soft),transparent_60%),radial-gradient(40rem_25rem_at_50%_110%,var(--rb-t1-soft),transparent_60%)]"
   >
   </div>
-  <div class="mx-auto flex max-w-[60rem] flex-col items-center gap-6 px-6 text-center">
+  <div class="mx-auto flex max-w-[62rem] flex-col items-center gap-6 px-6 text-center">
     {
       venue && (
         <span class="rounded-full border border-zinc-300 bg-white/70 px-4 py-1 text-sm font-medium tracking-wide text-zinc-700 dark:border-zinc-700 dark:bg-zinc-900/70 dark:text-zinc-300">
@@ -31,28 +33,50 @@ const { title, subtitle, venue, authors, links } = Astro.props;
     }
     <h1 class="rb-wordmark text-[2.6rem] leading-tight font-bold tracking-tight sm:text-7xl">{title}</h1>
     <p class="max-w-[44rem] text-xl leading-snug text-zinc-700 sm:text-2xl dark:text-zinc-300">{subtitle}</p>
-    <div class="flex flex-row flex-wrap justify-center gap-x-6 gap-y-2 text-lg">
-      {
-        authors.map((a) => (
-          <span>
-            {a.url ? <a class="text-zinc-900 underline decoration-dotted underline-offset-4 dark:text-zinc-100" href={a.url}>{a.name}</a> : <span class="text-zinc-900 dark:text-zinc-100">{a.name}</span>}
-            {a.notes && <sup>{a.notes.join(",")}</sup>}
-            {a.institution && <span class="ml-1 text-base text-zinc-500">· {a.institution}</span>}
-          </span>
-        ))
-      }
+    <div class="flex flex-col items-center gap-2">
+      <div class="flex max-w-[52rem] flex-row flex-wrap justify-center gap-x-5 gap-y-1 text-lg">
+        {
+          authors.map((a) => (
+            <span class="whitespace-nowrap text-zinc-900 dark:text-zinc-100">
+              {a.url ? <a class="underline decoration-dotted underline-offset-4" href={a.url}>{a.name}</a> : a.name}<sup class="ml-px text-xs text-zinc-500">{a.affil.join(",") + (a.equal ? "*" : "")}</sup>
+            </span>
+          ))
+        }
+      </div>
+      <div class="flex max-w-[52rem] flex-row flex-wrap justify-center gap-x-4 gap-y-0.5 text-sm text-zinc-600 dark:text-zinc-400">
+        {
+          affiliations.map((inst, i) => (
+            <span class="whitespace-nowrap">
+              <sup>{i + 1}</sup>
+              {inst}
+            </span>
+          ))
+        }
+      </div>
+      {authors.some((a) => a.equal) && <div class="text-xs text-zinc-500"><sup>*</sup>Equal contribution</div>}
     </div>
     <div class="flex flex-row flex-wrap justify-center gap-2">
       {
-        links.map((l) => (
-          <a
-            href={l.url}
-            class="flex items-center gap-2 rounded-full bg-zinc-900 px-5 py-2 text-base font-medium text-white transition hover:-translate-y-0.5 hover:bg-black dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-white"
-          >
-            {l.icon && <Icon name={l.icon} />}
-            <span>{l.name}</span>
-          </a>
-        ))
+        links.map((l) =>
+          l.url ? (
+            <a
+              href={l.url}
+              class="flex items-center gap-2 rounded-full bg-zinc-900 px-5 py-2 text-base font-medium text-white transition hover:-translate-y-0.5 hover:bg-black dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-white"
+            >
+              {l.icon && <Icon name={l.icon} />}
+              <span>{l.name}</span>
+            </a>
+          ) : (
+            <span
+              aria-disabled="true"
+              class="flex cursor-default items-center gap-2 rounded-full border border-dashed border-zinc-400 px-5 py-2 text-base font-medium text-zinc-500 dark:border-zinc-600"
+            >
+              {l.icon && <Icon name={l.icon} />}
+              <span>{l.name}</span>
+              <span class="text-xs">coming soon</span>
+            </span>
+          ),
+        )
       }
     </div>
   </div>

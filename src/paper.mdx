@@ -22,25 +22,48 @@ import pipeline from "./assets/fig/pipeline.png";
 import construction from "./assets/fig/construction.png";
 import resultsGlance from "./assets/fig/results_glance.png";
 
-{/* TODO(author): real author list, affiliations, and link targets before going public. */}
-
 <Hero
   title="ReactionBench"
   subtitle="A human-anchored benchmark for grounding an observed viewer reaction in the video that caused it."
-  venue="Under review · 2026"
+  venue="NeurIPS 2026 Workshop on Evaluation of Interactive Agents (IAEval)"
   authors={[
-    { name: "Author One", institution: "Institution" },
-    { name: "Author Two", institution: "Institution" },
-    { name: "Author Three", institution: "Institution" },
+    { name: "Yibo Zhao", affil: [1, 2], equal: true },
+    { name: "Ao Qu", affil: [2], equal: true },
+    { name: "Xuan Jiang", affil: [2] },
+    { name: "Jiahao Xu", affil: [3] },
+    { name: "Keane Ong", affil: [4] },
+    { name: "Hang Jiang", affil: [5] },
+    { name: "Zhaofeng Wu", affil: [2] },
+    { name: "Dingyi Zhuang", affil: [2] },
+    { name: "Yihong Tang", affil: [6] },
+    { name: "Kaichen Zhou", affil: [2] },
+    { name: "Jinhua Zhao", affil: [2] },
+    { name: "Paul Pu Liang", affil: [2] },
+  ]}
+  affiliations={[
+    "University of Illinois Urbana-Champaign",
+    "Massachusetts Institute of Technology",
+    "Independent Researcher",
+    "National University of Singapore",
+    "Northeastern University",
+    "McGill University",
   ]}
   links={[
-    { name: "Paper", url: "#", icon: "ri:file-pdf-2-line" },
-    { name: "arXiv", url: "#", icon: "academicons:arxiv" },
-    { name: "Code", url: "#", icon: "ri:github-line" },
-    { name: "Dataset", url: "#", icon: "ri:database-2-line" },
+    { name: "Paper", icon: "ri:file-pdf-2-line" },
+    { name: "arXiv", icon: "academicons:arxiv" },
+    { name: "Code", url: "https://github.com/MIT-MI/ReactionBench", icon: "ri:github-line" },
+    { name: "Dataset", icon: "ri:database-2-line" },
     { name: "Leaderboard", url: "#leaderboard", icon: "ri:trophy-line" },
   ]}
 />
+
+<div class="not-prose mx-auto -mt-6 mb-10 max-w-[44rem] rounded-xl border border-zinc-200 bg-white/70 px-5 py-3 text-[0.95rem] text-zinc-700 dark:border-zinc-800 dark:bg-zinc-900/60 dark:text-zinc-300">
+  <span class="font-semibold">🔥 News</span>
+  <ul class="mt-1 mb-0 list-disc pl-5">
+    <li><b>2026-10</b> Code, frozen task files, and every model output are released on <a class="underline" href="https://github.com/MIT-MI/ReactionBench">GitHub</a>.</li>
+    <li><b>2026-09-30</b> ReactionBench is accepted to the NeurIPS 2026 Workshop on Evaluation of Interactive Agents (IAEval).</li>
+  </ul>
+</div>
 
 <Wide>
   <Figure>
@@ -157,18 +180,24 @@ Zero-shot results for seven multimodal models on the frozen evaluation sets. IP 
 
 - **Code** (MIT): evaluation harness for all three tasks, scoring, judge, and the dataset-construction pipeline.
 - **Annotations** (CC BY-NC 4.0): frozen task files, de-identified human ratings, and human rationale references. Annotator identities are replaced with pseudonyms.
-- **Videos are not redistributed.** Each item references its public source video by ID and timestamps, and a script retrieves and cuts the clips locally. Stimulus content remains the property of its rights holders.
-- **Creator opt-out and takedown.** Creators can request removal of their videos from the benchmark through the contact below. {/* TODO(author): takedown contact */}
+- **Videos are not redistributed.** Task files refer to clips by key; scoring and reproducing the paper need no media. Reaction recordings belong to their creators and stimulus content to its rights holders.
+- **Creator opt-out and takedown.** Creators can request removal of their videos by emailing [yibozhao@mit.edu](mailto:yibozhao@mit.edu) and [qua@mit.edu](mailto:qua@mit.edu) (see [TAKEDOWN.md](https://github.com/MIT-MI/ReactionBench/blob/main/TAKEDOWN.md)).
 
 ReactionBench is intended for evaluating research systems that connect observable events with observable reactions under a disclosed protocol. It is **not** intended for inferring private mental states, diagnosing emotion or health, detecting deception, ranking people by emotional expressiveness, or supporting surveillance or consequential decisions about individuals. Human-participant research completed institutional ethics review. Annotators were paid an average of \$12.00–\$16.67 per hour.
 
 ## BibTeX
 
 ```bibtex
-@inproceedings{reactionbench2026,
+@inproceedings{zhao2026reactionbench,
   title     = {ReactionBench: A Human-Anchored Benchmark for Modeling Reactions to Video},
-  author    = {TODO},
-  booktitle = {TODO},
+  author    = {Zhao, Yibo and Qu, Ao and Jiang, Xuan and Xu, Jiahao and Ong, Keane and Jiang, Hang and
+               Wu, Zhaofeng and Zhuang, Dingyi and Tang, Yihong and Zhou, Kaichen and Zhao, Jinhua and
+               Liang, Paul Pu},
+  booktitle = {NeurIPS 2026 Workshop on Evaluation of Interactive Agents (IAEval)},
   year      = {2026}
 }
 ```
+
+## Contact
+
+Questions, collaboration, and takedown requests: Yibo Zhao ([yibozhao@mit.edu](mailto:yibozhao@mit.edu)) and Ao Qu ([qua@mit.edu](mailto:qua@mit.edu)). Bug reports: [GitHub Issues](https://github.com/MIT-MI/ReactionBench/issues).
