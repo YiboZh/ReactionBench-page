@@ -1,5 +1,5 @@
 {
- "_source": "gold_eval/tasks/match_set.json + results/match/*.jsonl; item ids kept out of the page on purpose",
+ "_source": "reactionbench/tasks/match_set.json + results/match/*.jsonl",
  "items": [
   {
    "id": "q1",
@@ -10,14 +10,14 @@
     "videos/quiz/q1_2.mp4",
     "videos/quiz/q1_3.mp4"
    ],
-   "answer": 3,
+   "answer": 0,
    "models": {
-    "GPT-5": 0,
-    "Gemini 3.7 Flash": 1,
-    "Qwen3.5-9B": null,
-    "Qwen3.6-27B": 0,
-    "Qwen3.6-35B-A3B": 0,
-    "Qwen3.5-397B-A17B": 3,
+    "GPT-5": 3,
+    "Gemini 3.7 Flash": 0,
+    "Qwen3.5-9B": 0,
+    "Qwen3.6-27B": 3,
+    "Qwen3.6-35B-A3B": 3,
+    "Qwen3.5-397B-A17B": 0,
     "Kimi-K2.6": 0
    }
   },
@@ -32,12 +32,12 @@
    ],
    "answer": 3,
    "models": {
-    "GPT-5": 1,
-    "Gemini 3.7 Flash": 1,
+    "GPT-5": 2,
+    "Gemini 3.7 Flash": 3,
     "Qwen3.5-9B": null,
-    "Qwen3.6-27B": 1,
-    "Qwen3.6-35B-A3B": 2,
-    "Qwen3.5-397B-A17B": 1,
+    "Qwen3.6-27B": 3,
+    "Qwen3.6-35B-A3B": 3,
+    "Qwen3.5-397B-A17B": 0,
     "Kimi-K2.6": 1
    }
   },
@@ -52,53 +52,13 @@
    ],
    "answer": 1,
    "models": {
-    "GPT-5": 0,
-    "Gemini 3.7 Flash": 0,
-    "Qwen3.5-9B": 0,
-    "Qwen3.6-27B": 0,
-    "Qwen3.6-35B-A3B": 0,
-    "Qwen3.5-397B-A17B": 0,
-    "Kimi-K2.6": 0
-   }
-  },
-  {
-   "id": "q4",
-   "reaction": "videos/quiz/q4_r.mp4",
-   "options": [
-    "videos/quiz/q4_0.mp4",
-    "videos/quiz/q4_1.mp4",
-    "videos/quiz/q4_2.mp4",
-    "videos/quiz/q4_3.mp4"
-   ],
-   "answer": 0,
-   "models": {
-    "GPT-5": 3,
-    "Gemini 3.7 Flash": 1,
-    "Qwen3.5-9B": null,
-    "Qwen3.6-27B": 3,
-    "Qwen3.6-35B-A3B": 3,
-    "Qwen3.5-397B-A17B": 3,
-    "Kimi-K2.6": 3
-   }
-  },
-  {
-   "id": "q5",
-   "reaction": "videos/quiz/q5_r.mp4",
-   "options": [
-    "videos/quiz/q5_0.mp4",
-    "videos/quiz/q5_1.mp4",
-    "videos/quiz/q5_2.mp4",
-    "videos/quiz/q5_3.mp4"
-   ],
-   "answer": 0,
-   "models": {
     "GPT-5": 1,
-    "Gemini 3.7 Flash": 1,
+    "Gemini 3.7 Flash": 0,
     "Qwen3.5-9B": null,
     "Qwen3.6-27B": 1,
     "Qwen3.6-35B-A3B": 1,
-    "Qwen3.5-397B-A17B": 3,
-    "Kimi-K2.6": 1
+    "Qwen3.5-397B-A17B": 0,
+    "Kimi-K2.6": 0
    }
   }
  ]
